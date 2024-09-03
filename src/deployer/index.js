@@ -1,4 +1,4 @@
-const { rebootTaskCreator } = require('./control')
+const { pushTaskCreator } = require('./control')
 const gulp = require("gulp");
 const yaml = require('yaml');
 const fs = require('fs');
@@ -17,11 +17,11 @@ function parallelSyncTasks(apps) {
   return gulp.parallel(...tasks)
 }
 
-function parallelRebootTasks(apps) {
+function parallelPushTasks(apps) {
   const tasks = []
   for (const app of Object.values(apps)) {
     if (!app.disable) {
-      const task = rebootTaskCreator({
+      const task = pushTaskCreator({
         host: app.host,
         port: 22,
         username: app.user,
@@ -34,12 +34,12 @@ function parallelRebootTasks(apps) {
 
 
 const { apps } = yaml.parse(
-  fs.readFileSync(`${ROOT_PATH}/config/haizeimao.yml`)
+  fs.readFileSync(`${ROOT_PATH}/config/github_deployer.yml`)
     .toString()
 );
 
-exports.haizeimaoSync = parallelSyncTasks(apps)
-exports.haizeimaoReboot = parallelRebootTasks(apps)
+exports.haizeimaoSyncDeployer = parallelSyncTasks(apps)
+exports.haizeimaoPushDeployer = parallelPushTasks(apps)
 
-exports.haizeimaoSync.description = '海贼猫 rsync 同步'
-exports.haizeimaoReboot.description = '海贼猫服务重启'
+exports.haizeimaoSyncDeployer.description = 'deployer rsync 同步'
+exports.haizeimaoPushDeployer.description = 'deployer 提交 git'

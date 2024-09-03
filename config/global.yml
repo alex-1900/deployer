@@ -1,0 +1,2 @@
+global:
+  ssh_key_path: /home/gray/.ssh/id_rsa

@@ -1,11 +1,20 @@
 apps:
   prod:
-    source: /home/gray/src/fanyou/haizeimao/islandServer
+    source: /home/gray/src/fanyou/new/haizeimao/islandServer
     user: root
     host: 66.112.215.31
     dest: ~/test/haizeimao
+    exclude:
+      - .git
+      - .DS_Store
+      - trunk/test
+      - trunk/system
   dev:
-    source: /home/gray/src/fanyou/haizeimao/islandServer
+    source: /home/gray/src/fanyou/new/haizeimao/islandServer
     user: root
     host: 66.112.215.31
-    dest: ~/test/haizeimao2
+    dest: ~/test/haizeimao
+    exclude:
+      - .git
+      - .DS_Store
+    disable: true
