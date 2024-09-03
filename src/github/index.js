@@ -10,7 +10,7 @@ function syncDeployerTask(apps) {
 
   const commitTask = localCommitTaskCreator('update')
   const syncTask = syncTaskCreator({ source, user, host, dest, exclude, include })
-  return gulp.series(commitTask)
+  return gulp.series(commitTask, syncTask)
 }
 
 function pushDeployerTask(apps) {
