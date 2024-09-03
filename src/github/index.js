@@ -19,7 +19,8 @@ function pushDeployerTask(apps) {
     port: 22,
     username: apps.deployer.user,
   })
-  return gulp.series(pushTask, localPullTask)
+  // TODO: 取回任务
+  return gulp.series(pushTask)
 }
 
 const { apps } = yaml.parse(
