@@ -1,7 +1,7 @@
 const gulp = require('gulp');
 
 const { haizeimaoSync, haizeimaoReboot } = require('./src/haizeimao')
-const { githubSyncDeployer, githubPushDeployer } = require('./src/deployer')
+const { githubSyncDeployer, githubPushDeployer } = require('./src/github')
 
 // 海贼猫
 gulp.task('haizeimao_sync', haizeimaoSync)

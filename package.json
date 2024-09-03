@@ -19,6 +19,7 @@
   "homepage": "https://github.com/alex-1900/deployer#readme",
   "dependencies": {
     "gulp": "^5.0.0",
+    "gulp-git": "^2.11.0",
     "rsync": "^0.6.1",
     "ssh2": "^1.15.0",
     "yaml": "^2.5.0"
