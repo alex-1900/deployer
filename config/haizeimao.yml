@@ -1,6 +1,6 @@
 apps:
   prod:
-    source: /home/gray/src/fanyou/new/haizeimao/islandServer
+    source: /home/gray/src/fanyou/haizeimao/islandServer
     user: root
     host: 66.112.215.31
     dest: ~/test/haizeimao
