@@ -35,6 +35,14 @@ function localCommitTaskCreator (commit) {
   }
 }
 
+function localPullTask(cb) {
+  git.pull('origin', 'main', {}, function (err) {
+    if (err) throw err;
+    cb()
+  });
+}
+
 
 exports.pushTaskCreator = pushTaskCreator
 exports.localCommitTaskCreator = localCommitTaskCreator
+exports.localPullTask = localPullTask

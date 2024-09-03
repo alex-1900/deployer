@@ -1,4 +1,4 @@
-const { pushTaskCreator, localCommitTaskCreator } = require('./control')
+const { pushTaskCreator, localCommitTaskCreator, localPullTask } = require('./control')
 const gulp = require("gulp");
 const yaml = require('yaml');
 const fs = require('fs');
@@ -14,11 +14,12 @@ function syncDeployerTask(apps) {
 }
 
 function pushDeployerTask(apps) {
-  return pushTaskCreator('~/src/deployer', {
+  const pushTask = pushTaskCreator('~/src/deployer', {
     host: apps.deployer.host,
     port: 22,
     username: apps.deployer.user,
   })
+  return gulp.series(pushTask, localPullTask)
 }
 
 const { apps } = yaml.parse(
