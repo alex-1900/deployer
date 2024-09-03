@@ -5,41 +5,26 @@ const fs = require('fs');
 const {ROOT_PATH} = require("../constants");
 const { syncTaskCreator } = require('../lib/common');
 
-function parallelSyncTasks(apps) {
-  const tasks = []
-  for (const app of Object.values(apps)) {
-    if (!app.disable) {
-      const { source, user, host, dest, exclude, include } = app
-      const task = syncTaskCreator({ source, user, host, dest, exclude, include })
-      tasks.push(task)
-    }
-  }
-  return gulp.parallel(...tasks)
+function syncDeployerTask(apps) {
+  const { source, user, host, dest, exclude, include } = apps.deployer
+  return syncTaskCreator({ source, user, host, dest, exclude, include })
 }
 
-function parallelPushTasks(apps) {
-  const tasks = []
-  for (const app of Object.values(apps)) {
-    if (!app.disable) {
-      const task = pushTaskCreator({
-        host: app.host,
-        port: 22,
-        username: app.user,
-      })
-      tasks.push(task)
-    }
-  }
-  return gulp.parallel(...tasks)
+function pushDeployerTask(apps) {
+  return pushTaskCreator('~/src/deployer', {
+    host: apps.deployer.host,
+    port: 22,
+    username: apps.deployer.user,
+  })
 }
-
 
 const { apps } = yaml.parse(
-  fs.readFileSync(`${ROOT_PATH}/config/github_deployer.yml`)
+  fs.readFileSync(`${ROOT_PATH}/config/github.yml`)
     .toString()
 );
 
-exports.haizeimaoSyncDeployer = parallelSyncTasks(apps)
-exports.haizeimaoPushDeployer = parallelPushTasks(apps)
+exports.githubSyncDeployer = syncDeployerTask(apps)
+exports.githubPushDeployer = pushDeployerTask(apps)
 
-exports.haizeimaoSyncDeployer.description = 'deployer rsync 同步'
-exports.haizeimaoPushDeployer.description = 'deployer 提交 git'
+exports.githubSyncDeployer.description = 'deployer rsync 同步'
+exports.githubPushDeployer.description = 'deployer 提交 git'

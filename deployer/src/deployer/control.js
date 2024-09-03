@@ -2,15 +2,17 @@ const { SSH_KEY } = require('../constants');
 const { ssh } = require('../lib/ssh')
 
 /**
- * Git 提交任务
+ * 服务重启任务
  * @param {object} sshConfig 
  * @returns (cb: any) => Promise<void>
  */
-function pushTaskCreator (dir, sshConfig) {
+function pushTaskCreator (sshConfig) {
   sshConfig.privateKey = SSH_KEY
   return async (cb) => {
     await ssh(sshConfig, [
-      `cd ${dir}`,
+      'cd ~/src/deployer',
+      'git add .',
+      'git commit -m "update"',
       'git push origin main'
     ])
     cb()

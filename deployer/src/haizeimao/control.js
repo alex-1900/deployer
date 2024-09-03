@@ -2,19 +2,19 @@ const { SSH_KEY } = require('../constants');
 const { ssh } = require('../lib/ssh')
 
 /**
- * Git 提交任务
+ * 服务重启任务
  * @param {object} sshConfig 
  * @returns (cb: any) => Promise<void>
  */
-function pushTaskCreator (dir, sshConfig) {
+function rebootTaskCreator (sshConfig) {
   sshConfig.privateKey = SSH_KEY
   return async (cb) => {
     await ssh(sshConfig, [
-      `cd ${dir}`,
-      'git push origin main'
+      'cd src/fast-bird/',
+      'ls -l'
     ])
     cb()
   }
 }
 
-exports.pushTaskCreator = pushTaskCreator
+exports.rebootTaskCreator = rebootTaskCreator

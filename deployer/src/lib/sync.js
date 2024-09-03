@@ -1,6 +1,6 @@
 const RSync = require('rsync');
 
-exports.sync = function ({ source, user, chown, host, dest, exclude, include }) {
+exports.sync = function ({ source, user, host, dest, exclude, include }) {
   const rsync = new RSync({})
   let inst = rsync
     .source(source)
@@ -9,7 +9,7 @@ exports.sync = function ({ source, user, chown, host, dest, exclude, include }) 
     .flags('avz', true)
     .set('progress', false)
     .set('delete', null)
-    .set('chown', chown || user)
+    .set('chown', user)
 
   if (exclude) {
     inst = inst.exclude(exclude)

@@ -15,6 +15,6 @@ exports.syncTaskCreator = function syncTaskCreator(profile) {
       console.log(data.toString());
     }, error => {
       console.error(error.toString());
-    })
+    });
   }
 }

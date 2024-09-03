@@ -1,0 +1,9 @@
+apps:
+  deployer:
+    source: .
+    user: root
+    host: 66.112.215.31
+    dest: ~/src/deployer
+    exclude:
+      - node_modules
+      - .idea
