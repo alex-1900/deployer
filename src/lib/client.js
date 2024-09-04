@@ -1,4 +1,5 @@
 const { Client } = require('ssh2')
+const { SSH_KEY } = require('../constants')
 
 function sshScript(conn, commands) {
   const command = commands.join(' && ').replace(/"/g, '\\"')
@@ -45,7 +46,7 @@ function sshShell(conn, commands = []) {
   })
 }
 
-exports.ssh = (sshConfig, commands = []) => {
+function ssh(sshConfig, commands = []) {
   return new Promise((resolve, reject) => {
     const conn = new Client()
     conn.on('ready', async () => {
@@ -57,6 +58,9 @@ exports.ssh = (sshConfig, commands = []) => {
         reject(error)
       }
     })
+    sshConfig.privateKey = SSH_KEY
     conn.connect(sshConfig)
   })
 }
+
+exports.ssh = ssh

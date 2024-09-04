@@ -3,7 +3,7 @@ const gulp = require("gulp");
 const yaml = require('yaml');
 const fs = require('fs');
 const {ROOT_PATH} = require("../constants");
-const { syncTaskCreator } = require('../lib/common');
+const { syncTaskCreator } = require('../lib/creator');
 
 function syncDeployerTask(apps) {
   const { source, user, host, dest, exclude, include } = apps.deployer

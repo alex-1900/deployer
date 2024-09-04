@@ -1,5 +1,5 @@
 const { SSH_KEY } = require('../constants');
-const { ssh } = require('../lib/ssh')
+const { ssh } = require('../lib/client')
 const gulp = require('gulp');
 const git = require('gulp-git')
 
